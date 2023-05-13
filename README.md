@@ -7,8 +7,11 @@ This is an opinionated wordpress project that you can use for *local development
 You can create a new project by running:
 
 ```bash
-composer create-project zaherg/wordpress my-project -s dev <version>
+composer create-project zaherg/wordpress-project my-project -s dev <version>
 ```
+
+> I use the development stability due to WP CLI deprecation messages. 
+
 
 Remember to replace `<version>` with the tag you want to use like `v6.0`,`v6.1` .. etc.
 
