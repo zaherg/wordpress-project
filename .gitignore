@@ -1,0 +1,17 @@
+/.vscode
+/.idea
+
+/node_modules
+/public/core
+/vendor
+
+.env
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

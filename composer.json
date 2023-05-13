@@ -1,0 +1,65 @@
+{
+    "name": "zaherg/wordpress",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "ergebnis/composer-normalize": "^2.31",
+        "johnpbloch/wordpress-core": "6.0",
+        "johnpbloch/wordpress-core-installer": "*",
+        "pollen-solutions/wp-salt": "dev-master",
+        "vlucas/phpdotenv": "^5.0.0",
+        "wp-cli/wp-cli-bundle": "*",
+        "wpackagist-plugin/disable-wordpress-updates": "dev-trunk",
+        "wpackagist-plugin/laravel-dd": "1.0.1",
+        "wpackagist-theme/twentytwentytwo":"1.4"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "files": [
+            "support/helpers.php"
+        ]
+    },
+    "config": {
+        "allow-plugins": true,
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "installer-paths": {
+            "public/content/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "public/content/themes/{$name}/": [
+                "type:wordpress-theme"
+            ]
+        },
+        "wordpress-install-dir": {
+            "johnpbloch/wordpress-core": "public/core"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "wp-salt >> .env"
+        ],
+        "post-update-cmd": [
+            "composer normalize"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "salt": "wp-salt >> .env",
+        "wp:install": [
+            "wp core install --prompt",
+            "wp theme install twentytwentytwo --activate",
+            "wp plugin install disable-wordpress-updates --activate"
+        ]
+    }
+}
