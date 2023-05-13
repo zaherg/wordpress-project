@@ -35,7 +35,7 @@ define('WP_DEBUG_LOG', env('WP_DEBUG_LOG', dirname(__DIR__)  . '/storage/logs/wp
 // WP
 $table_prefix = env('DB_PREFIX', 'wp_');
 define('WP_HOME', env('WP_HOME', 'http://localhost'));
-define('WP_SITEURL', env('WP_SITEURL', 'http://localhost/wp'));
+define('WP_SITEURL', env('WP_SITEURL', env('WP_HOME').'/core'));
 define('CONTENT_DIR', 'content');
 define('WP_CONTENT_FOLDERNAME', 'content');
 define('WP_CONTENT_DIR', dirname(__DIR__) . '/public/' . CONTENT_DIR);
