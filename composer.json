@@ -4,14 +4,14 @@
     "require": {
         "php": "^8.0",
         "ergebnis/composer-normalize": "^2.31",
-        "johnpbloch/wordpress-core": "6.0",
+        "johnpbloch/wordpress-core": "6.1",
         "johnpbloch/wordpress-core-installer": "*",
         "pollen-solutions/wp-salt": "dev-master",
         "vlucas/phpdotenv": "^5.0.0",
         "wp-cli/wp-cli-bundle": "*",
         "wpackagist-plugin/disable-wordpress-updates": "dev-trunk",
         "wpackagist-plugin/laravel-dd": "1.0.1",
-        "wpackagist-theme/twentytwentytwo":"1.4"
+        "wpackagist-theme/twentytwentythree":"1.1"
     },
     "repositories": [
         {
@@ -58,7 +58,7 @@
         "salt": "wp-salt >> .env",
         "wp:install": [
             "wp core install --prompt",
-            "wp theme install twentytwentytwo --activate",
+            "wp theme install twentytwentythree --activate",
             "wp plugin install disable-wordpress-updates --activate"
         ]
     }
