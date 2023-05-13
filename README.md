@@ -10,7 +10,8 @@ You can create a new project by running:
 composer create-project zaherg/wordpress-project my-project -s dev <version>
 ```
 
-> I use the development stability due to WP CLI deprecation messages. 
+> There is a small fix for wp cli which was copied from https://github.com/orgs/wp-cli/discussions/5765 and
+> https://github.com/wp-cli/wp-cli/issues/5623#issuecomment-1469899992
 
 
 Remember to replace `<version>` with the tag you want to use like `v6.0`,`v6.1` .. etc.
@@ -42,4 +43,5 @@ composer wp:install
 ```
 
 ## License
-- This is licensed under the GPL version 2 or later.
+
+This is licensed under the GPL version 2 or later.

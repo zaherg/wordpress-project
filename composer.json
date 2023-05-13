@@ -1,7 +1,6 @@
 {
     "name": "zaherg/wordpress-project",
-    "homepage": "https://github.com/zaherg/wordpress-project",
-    "description" : "An out-of-the-box composer-powered WordPress package inspired by Kevin Batdorf",
+    "description": "An out-of-the-box composer-powered WordPress package inspired by Kevin Batdorf",
     "license": "GPL-2.0-or-later",
     "type": "project",
     "authors": [
@@ -10,8 +9,9 @@
             "email": "zaher@zaher.dev",
             "homepage": "https://zaher.dev",
             "role": "Developer"
-        },
+        }
     ],
+    "homepage": "https://github.com/zaherg/wordpress-project",
     "require": {
         "php": "^8.0",
         "ergebnis/composer-normalize": "^2.31",
@@ -19,10 +19,10 @@
         "johnpbloch/wordpress-core-installer": "^2.0",
         "pollen-solutions/wp-salt": "dev-master",
         "vlucas/phpdotenv": "^5.0.0",
-        "wp-cli/wp-cli-bundle": "*",
+        "wp-cli/wp-cli-bundle": "^2.7",
         "wpackagist-plugin/disable-wordpress-updates": "dev-trunk",
         "wpackagist-plugin/laravel-dd": "^1.0.1",
-        "wpackagist-theme/twentytwentythree":"^1.1"
+        "wpackagist-theme/twentytwentythree": "^1.1"
     },
     "repositories": [
         {
@@ -30,7 +30,7 @@
             "url": "https://wpackagist.org"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "files": [
@@ -67,10 +67,11 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "salt": "wp-salt >> .env",
+        "wp:cli": "echo 'php -d error_reporting=24575 -f ./vendor/wp-cli/wp-cli/php/boot-fs.php '",
         "wp:install": [
-            "wp core install --prompt",
-            "wp theme install twentytwentythree --activate",
-            "wp plugin install disable-wordpress-updates --activate"
+            "$(composer run wp:cli) core install --prompt",
+            "$(composer run wp:cli) theme install twentytwentythree --activate",
+            "$(composer run wp:cli) plugin install disable-wordpress-updates --activate"
         ]
     }
 }
