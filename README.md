@@ -26,17 +26,19 @@ DB_USER=
 DB_PASSWORD=
 DB_HOST=
 WP_HOME=
-WP_SITEURL=
 ```
 
 All environment variables has a default value, you can always consolidate the [config](./support/config.php) file
 to check all the environment variables available.
 
-once you are done editing the `.env` file, you should run the following command
+once you are done editing the `.env` file, you can either run the installer via your browser or use the following command
 
 ```
 composer wp:install
 ```
+
+- Make sure that the url you entered in the prompt match your `WP_HOME/core` so if your `WP_HOME` is `http://wordpress.test`, the url you enter should be `http://wordpress.test/core`
+
 
 > **Note**
 >
