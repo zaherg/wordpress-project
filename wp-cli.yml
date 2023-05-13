@@ -1,1 +1,8 @@
 path: public/core
+color: true
+
+core install:
+  title: "WordPress Project !"
+  admin_user: admin
+  admin_email: admin@example.com
+  admin_password: password
