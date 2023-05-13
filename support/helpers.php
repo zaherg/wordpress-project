@@ -5,6 +5,8 @@ use PhpOption\Option;
 if (! function_exists('env')) {
     /**
      * Gets the value of an environment variable.
+     * This is a modified version of
+     * https://github.com/laravel/framework/blob/a7f454c4d4b84fd7a1e18f77cfbc38d032481936/src/Illuminate/Support/Env.php#L66-L100
      *
      * @param  string  $key
      * @param  mixed  $default
