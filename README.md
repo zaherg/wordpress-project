@@ -1,6 +1,6 @@
 # Wordpress project using Composer
 
-This is an opinionated wordpress project that you can use for *local development*
+This is an opinionated wordpress project that you can use for **local development**
 
 ## Create a new project
 
@@ -11,7 +11,11 @@ composer create-project zaherg/wordpress-project [path] [version]
 ```
 
 - `[path]` is the path to the installation directory, if not defined, a wordpress-project folder will be created in your current path.
-- `[version]` is the version of the project to use when installing, if not defined, the more recent stable is used, else you can use : `dev-main`, `v6.2`, ...
+- `[version]` is the version of the project to use when installing, if not defined, the more recent stable is used, else you can use : `dev-main`, `v6.2.1`, ...
+
+> **Note**
+> The first two numbers from the version represent wordpress version, while the last number represent the miner changes 
+> I do for the internal code like the code inside [helpers](./support/helpers.php) file.
 
 You can also use a simple git clone :
 
