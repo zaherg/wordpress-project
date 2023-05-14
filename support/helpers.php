@@ -16,26 +16,19 @@ if (! function_exists('env')) {
     {
         return Option::fromValue($_ENV[$key] ?? $default)
             ->map(function ($value) {
-                switch (strtolower($value)) {
-                    case 'true':
-                    case '(true)':
-                        return true;
-                    case 'false':
-                    case '(false)':
-                        return false;
-                    case 'empty':
-                    case '(empty)':
-                        return '';
-                    case 'null':
-                    case '(null)':
-                        return;
-                }
+                $result = match(strtolower($value)) {
+                    'true', '(true)' => true,
+                    'false', '(false)' => false,
+                    'empty', '(empty)' => '',
+                    'null', '(null)' =>  null,
+                    default => $value,
+                };
 
-                if (preg_match('/\A([\'"])(.*)\1\z/', $value, $matches)) {
+                if (!is_null($result) && preg_match('/\A([\'"])(.*)\1\z/', $result, $matches)) {
                     return $matches[2];
                 }
 
-                return $value;
+                return $result;
             })
             ->getOrCall(fn () => $default);
     }
