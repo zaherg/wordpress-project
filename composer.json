@@ -70,9 +70,9 @@
         "wp:cli": "echo 'php -d error_reporting=24575 -f ./vendor/wp-cli/wp-cli/php/boot-fs.php '",
         "wp:exec": "$(composer run wp:cli)",
         "wp:install": [
-            "@wp:exec core install -- --prompt",
-            "@wp:exec theme install twentytwentythree -- --activate",
-            "@wp:exec plugin install disable-wordpress-updates -- --activate"
+            "@wp:exec core install --prompt",
+            "$(composer run wp:cli) theme install twentytwentythree --activate",
+            "$(composer run wp:cli) plugin install disable-wordpress-updates --activate"
         ]
     }
 }
