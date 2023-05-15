@@ -1,3 +1,5 @@
+[![Make sure It works](https://github.com/zaherg/wordpress-project/actions/workflows/does-it-work.yml/badge.svg?branch=main)](https://github.com/zaherg/wordpress-project/actions/workflows/does-it-work.yml)
+
 # Wordpress project using Composer
 
 This is an opinionated wordpress project that you can use for **local development**

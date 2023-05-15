@@ -1,0 +1,75 @@
+name: Make sure It works
+
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - v6.*
+  pull_request:
+    branches:
+      - main
+    tags-ignore:
+      - v6.*
+
+jobs:
+  run-it:
+    name: WP (${{ github.ref_name }}) - PHP (${{ matrix.php }})
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: alive - ${{ github.event.pull_request.number || github.ref }} - ${{ matrix.php }} - ${{ matrix.wp }}
+      cancel-in-progress: true
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2']
+
+    env:
+      APP_URL: localhost:8000
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: wordpress
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php }}'
+
+      - name: Create Project
+        if: github.ref_name != 'main'
+        run: composer create-project zaherg/wordpress-project wp "${{ github.ref_name }}"
+
+      - name: Create Project
+        if: github.ref_name == 'main'
+        run: composer create-project zaherg/wordpress-project wp "dev-${{ github.ref_name }}"
+
+      - name: Update configuration
+        working-directory: wp
+        run: |
+          sed -i 's/wordpress.test/localhost:8000/g' .env
+          sed -i 's/:3306/:${{ job.services.mysql.ports[3306] }}/g' .env
+          composer run wp:salt
+
+      - name: Run the installer
+        working-directory: wp
+        run: |
+          composer run wp:exec core install -- --url=http://${{ env.APP_URL }}
+
+      - name: Start server
+        working-directory: wp
+        run: |
+          nohup php -S ${{ env.APP_URL }} -t public/ &
+
+      - name: Is it alive?
+        run: |
+          curl -I http://${{ env.APP_URL }}
