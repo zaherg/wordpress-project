@@ -13,8 +13,7 @@
     ],
     "homepage": "https://github.com/zaherg/wordpress-project",
     "require": {
-        "php": "^8.0",
-        "ergebnis/composer-normalize": "^2.31",
+        "php": "^7.4 || ^8.0",
         "johnpbloch/wordpress-core": "^6.1",
         "johnpbloch/wordpress-core-installer": "^2.0",
         "pollen-solutions/wp-salt": "dev-master",
@@ -60,19 +59,16 @@
         "post-install-cmd": [
             "wp-salt >> .env"
         ],
-        "post-update-cmd": [
-            "composer normalize"
-        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "salt": "wp-salt >> .env",
         "wp:cli": "echo 'php -d error_reporting=24575 -f ./vendor/wp-cli/wp-cli/php/boot-fs.php '",
         "wp:exec": "$(composer run wp:cli)",
         "wp:install": [
             "@wp:exec core install --prompt",
             "$(composer run wp:cli) theme install twentytwentythree --activate",
             "$(composer run wp:cli) plugin install disable-wordpress-updates --activate"
-        ]
+        ],
+        "wp:salt": "wp-salt >> .env"
     }
 }
