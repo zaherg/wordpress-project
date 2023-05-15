@@ -72,4 +72,4 @@ jobs:
 
       - name: Is it alive?
         run: |
-          curl -I http://${{ env.APP_URL }}
+          curl -I -s http://${{ env.APP_URL }} | grep 'HTTP/1.1 200 OK'
