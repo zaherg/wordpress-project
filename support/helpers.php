@@ -12,23 +12,30 @@ if (! function_exists('env')) {
      * @param  mixed  $default
      * @return mixed
      */
-    function env(string $key, mixed $default = null): mixed
+    function env($key, $default = null)
     {
         return Option::fromValue($_ENV[$key] ?? $default)
             ->map(function ($value) {
-                $result = match(strtolower($value)) {
-                    'true', '(true)' => true,
-                    'false', '(false)' => false,
-                    'empty', '(empty)' => '',
-                    'null', '(null)' =>  null,
-                    default => $value,
-                };
+                switch (strtolower($value)) {
+                    case 'true':
+                    case '(true)':
+                        return true;
+                    case 'false':
+                    case '(false)':
+                        return false;
+                    case 'empty':
+                    case '(empty)':
+                        return '';
+                    case 'null':
+                    case '(null)':
+                        return;
+                }
 
-                if (!is_null($result) && preg_match('/\A([\'"])(.*)\1\z/', $result, $matches)) {
+                if (preg_match('/\A([\'"])(.*)\1\z/', $value, $matches)) {
                     return $matches[2];
                 }
 
-                return $result;
+                return $value;
             })
             ->getOrCall(fn () => $default);
     }
