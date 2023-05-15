@@ -54,19 +54,6 @@ jobs:
         if: github.ref_name == 'main'
         run: composer create-project zaherg/wordpress-project wp "dev-${{ github.ref_name }}"
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        working-directory: wp
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-wp-${{ github.ref_name }}-${{ matrix.php }}
-
       - name: Update configuration
         working-directory: wp
         run: |
