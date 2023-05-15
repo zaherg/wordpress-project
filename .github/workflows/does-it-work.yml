@@ -63,6 +63,7 @@ jobs:
         run: composer create-project zaherg/wordpress-project wp "${{ github.ref_name }}.x-dev"
 
       - name: Create Project
+        if: github.ref_name == 'main'
         run: composer create-project zaherg/wordpress-project wp "dev-${{ github.ref_name }}"
 
       - name: Update configuration
