@@ -14,7 +14,7 @@
     "homepage": "https://github.com/zaherg/wordpress-project",
     "require": {
         "php": "^7.4 || ^8.0",
-        "johnpbloch/wordpress-core": "^6.2",
+        "johnpbloch/wordpress-core": "^6.2.*",
         "johnpbloch/wordpress-core-installer": "^2.0",
         "pollen-solutions/wp-salt": "dev-master",
         "vlucas/phpdotenv": "^5.0.0",
